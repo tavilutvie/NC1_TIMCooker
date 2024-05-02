@@ -7,18 +7,26 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		43A2346B2BDF96390002E3DF /* ImagePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43A2346A2BDF96390002E3DF /* ImagePickerView.swift */; };
 		43C909EF2BDF2C9E004EC569 /* NC1_TIMCookerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C909EE2BDF2C9E004EC569 /* NC1_TIMCookerApp.swift */; };
 		43C909F12BDF2C9E004EC569 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C909F02BDF2C9E004EC569 /* ContentView.swift */; };
 		43C909F32BDF2C9F004EC569 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 43C909F22BDF2C9F004EC569 /* Assets.xcassets */; };
 		43C909F62BDF2C9F004EC569 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 43C909F52BDF2C9F004EC569 /* Preview Assets.xcassets */; };
+		43CE74F22BE24AAA00CBE0C0 /* MealListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43CE74F12BE24AAA00CBE0C0 /* MealListViewModel.swift */; };
+		43CE74F42BE24D0200CBE0C0 /* Meal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43CE74F32BE24D0200CBE0C0 /* Meal.swift */; };
+		43D5AC5F2BE277ED0024B70C /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43D5AC5E2BE277ED0024B70C /* DetailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		43A2346A2BDF96390002E3DF /* ImagePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerView.swift; sourceTree = "<group>"; };
 		43C909EB2BDF2C9E004EC569 /* NC1_TIMCooker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NC1_TIMCooker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		43C909EE2BDF2C9E004EC569 /* NC1_TIMCookerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NC1_TIMCookerApp.swift; sourceTree = "<group>"; };
 		43C909F02BDF2C9E004EC569 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		43C909F22BDF2C9F004EC569 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		43C909F52BDF2C9F004EC569 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		43CE74F12BE24AAA00CBE0C0 /* MealListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealListViewModel.swift; sourceTree = "<group>"; };
+		43CE74F32BE24D0200CBE0C0 /* Meal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Meal.swift; sourceTree = "<group>"; };
+		43D5AC5E2BE277ED0024B70C /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,8 +59,13 @@
 		43C909ED2BDF2C9E004EC569 /* NC1_TIMCooker */ = {
 			isa = PBXGroup;
 			children = (
+				43CE74F02BE248EC00CBE0C0 /* View */,
+				43CE74EF2BE248E700CBE0C0 /* Model */,
+				43CE74EE2BE248DC00CBE0C0 /* ViewModel */,
 				43C909EE2BDF2C9E004EC569 /* NC1_TIMCookerApp.swift */,
 				43C909F02BDF2C9E004EC569 /* ContentView.swift */,
+				43D5AC5E2BE277ED0024B70C /* DetailView.swift */,
+				43A2346A2BDF96390002E3DF /* ImagePickerView.swift */,
 				43C909F22BDF2C9F004EC569 /* Assets.xcassets */,
 				43C909F42BDF2C9F004EC569 /* Preview Content */,
 			);
@@ -65,6 +78,29 @@
 				43C909F52BDF2C9F004EC569 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		43CE74EE2BE248DC00CBE0C0 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				43CE74F12BE24AAA00CBE0C0 /* MealListViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		43CE74EF2BE248E700CBE0C0 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				43CE74F32BE24D0200CBE0C0 /* Meal.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		43CE74F02BE248EC00CBE0C0 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,7 +173,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				43CE74F42BE24D0200CBE0C0 /* Meal.swift in Sources */,
+				43D5AC5F2BE277ED0024B70C /* DetailView.swift in Sources */,
 				43C909F12BDF2C9E004EC569 /* ContentView.swift in Sources */,
+				43CE74F22BE24AAA00CBE0C0 /* MealListViewModel.swift in Sources */,
+				43A2346B2BDF96390002E3DF /* ImagePickerView.swift in Sources */,
 				43C909EF2BDF2C9E004EC569 /* NC1_TIMCookerApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -275,6 +315,8 @@
 				DEVELOPMENT_TEAM = D549JV5ACX;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "My app use camera";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "My app use recipe";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -304,6 +346,8 @@
 				DEVELOPMENT_TEAM = D549JV5ACX;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "My app use camera";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "My app use recipe";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

@@ -1,0 +1,63 @@
+//
+//  MealListViewModel.swift
+//  NC1_TIMCooker
+//
+//  Created by Eldenabih Tavirazin Lutvie on 01/05/24.
+//
+
+import Foundation
+
+class MealListViewModel: ObservableObject {
+    @Published private(set) var meals: [Meal] = [] // Published for binding with the View
+    @Published private(set) var hasIngredients: Bool = false // Tracks if ingredients have been uploaded
+    @Published private(set) var userIngredients: String = "sauce, peanut, olive oil, egg, garlic, tomato" // Stores user's available ingredients
+    
+    func filterMeals() {
+        if !userIngredients.isEmpty {
+          meals = meals.filter { meal in
+            // Implement logic to check if meal ingredients are a subset of user ingredients
+//            let userIngredientList = userIngredients.components(separatedBy: .whitespacesAndNewlines)
+//            let mealIngredientList = meal.ingredients.components(separatedBy: .whitespacesAndNewlines)
+              let userIngredientList = userIngredients.components(separatedBy: ", ")
+              let mealIngredientList = meal.ingredients.components(separatedBy: ", ")
+            return Set(mealIngredientList).isSubset(of: Set(userIngredientList))
+          }
+        }
+      }
+    
+//    func handleUploadPhoto(ingredients: String) { // Add ingredients as a parameter
+//        hasIngredients = true
+//        userIngredients = ingredients // Update user ingredients
+//        filterMeals() // Filter meals after ingredient update
+//      }
+    
+    
+    func loadMeals() {
+        // Implement logic to load meals from your data source (e.g., API, local storage)
+        // Replace with your actual data fetching logic
+        meals = [
+            Meal(name: "Pasta Primavera", imageUrl: "spaghetti", ingredients: "sauce, peanut", instructions: "Bring a large pot of water to a boil. Add kosher salt to the boiling water, then add the pasta. Cook according to the package instructions, about 9 minutes.\r\nIn a large skillet over medium-high heat, add the olive oil and heat until the oil starts to shimmer. Add the garlic and cook, stirring, until fragrant, 1 to 2 minutes. Add the chopped tomatoes, red chile flakes, Italian seasoning and salt and pepper to taste. Bring to a boil and cook for 5 minutes. Remove from the heat and add the chopped basil.\r\nDrain the pasta and add it to the sauce. Garnish with Parmigiano-Reggiano flakes and more basil and serve warm."),
+            Meal(name: "Chicken Fajitas", imageUrl: "corndog", ingredients: "olive oil, egg, garlic, tomato, basil, salt, sugar", instructions: "Bring a large pot of water to a boil. Add kosher salt to the boiling water, then add the pasta. Cook according to the package instructions, about 9 minutes.\r\nIn a large skillet over medium-high heat, add the olive oil and heat until the oil starts to shimmer. Add the garlic and cook, stirring, until fragrant, 1 to 2 minutes. Add the chopped tomatoes, red chile flakes, Italian seasoning and salt and pepper to taste. Bring to a boil and cook for 5 minutes. Remove from the heat and add the chopped basil.\r\nDrain the pasta and add it to the sauce. Garnish with Parmigiano-Reggiano flakes and more basil and serve warm."),
+            Meal(name: "Vegetarian Chili", imageUrl: "pie", ingredients: "olive oil, egg, tomato, basil, salt, sugar", instructions: "Bring a large pot of water to a boil. Add kosher salt to the boiling water, then add the pasta. Cook according to the package instructions, about 9 minutes.\r\nIn a large skillet over medium-high heat, add the olive oil and heat until the oil starts to shimmer. Add the garlic and cook, stirring, until fragrant, 1 to 2 minutes. Add the chopped tomatoes, red chile flakes, Italian seasoning and salt and pepper to taste. Bring to a boil and cook for 5 minutes. Remove from the heat and add the chopped basil.\r\nDrain the pasta and add it to the sauce. Garnish with Parmigiano-Reggiano flakes and more basil and serve warm."),
+            Meal(name: "Omelette", imageUrl: "omelette", ingredients: "olive oil, egg, garlic, tomato, salt, sugar", instructions: "Bring a large pot of water to a boil. Add kosher salt to the boiling water, then add the pasta. Cook according to the package instructions, about 9 minutes.\r\nIn a large skillet over medium-high heat, add the olive oil and heat until the oil starts to shimmer. Add the garlic and cook, stirring, until fragrant, 1 to 2 minutes. Add the chopped tomatoes, red chile flakes, Italian seasoning and salt and pepper to taste. Bring to a boil and cook for 5 minutes. Remove from the heat and add the chopped basil.\r\nDrain the pasta and add it to the sauce. Garnish with Parmigiano-Reggiano flakes and more basil and serve warm."),
+            Meal(name: "Omelette", imageUrl: "omelette", ingredients: "olive oil, egg, garlic, tomato, basil, salt", instructions: "Bring a large pot of water to a boil. Add kosher salt to the boiling water, then add the pasta. Cook according to the package instructions, about 9 minutes.\r\nIn a large skillet over medium-high heat, add the olive oil and heat until the oil starts to shimmer. Add the garlic and cook, stirring, until fragrant, 1 to 2 minutes. Add the chopped tomatoes, red chile flakes, Italian seasoning and salt and pepper to taste. Bring to a boil and cook for 5 minutes. Remove from the heat and add the chopped basil.\r\nDrain the pasta and add it to the sauce. Garnish with Parmigiano-Reggiano flakes and more basil and serve warm."),
+            Meal(name: "Omelette", imageUrl: "omelette", ingredients: "olive oil, salt, sugar", instructions: "Bring a large pot of water to a boil. Add kosher salt to the boiling water, then add the pasta. Cook according to the package instructions, about 9 minutes.\r\nIn a large skillet over medium-high heat, add the olive oil and heat until the oil starts to shimmer. Add the garlic and cook, stirring, until fragrant, 1 to 2 minutes. Add the chopped tomatoes, red chile flakes, Italian seasoning and salt and pepper to taste. Bring to a boil and cook for 5 minutes. Remove from the heat and add the chopped basil.\r\nDrain the pasta and add it to the sauce. Garnish with Parmigiano-Reggiano flakes and more basil and serve warm."),
+            Meal(name: "Omelette", imageUrl: "omelette", ingredients: "olive oil, garlic, tomato, basil, salt, sugar", instructions: "Bring a large pot of water to a boil. Add kosher salt to the boiling water, then add the pasta. Cook according to the package instructions, about 9 minutes.\r\nIn a large skillet over medium-high heat, add the olive oil and heat until the oil starts to shimmer. Add the garlic and cook, stirring, until fragrant, 1 to 2 minutes. Add the chopped tomatoes, red chile flakes, Italian seasoning and salt and pepper to taste. Bring to a boil and cook for 5 minutes. Remove from the heat and add the chopped basil.\r\nDrain the pasta and add it to the sauce. Garnish with Parmigiano-Reggiano flakes and more basil and serve warm."),
+            Meal(name: "Omelette", imageUrl: "omelette", ingredients: "egg, garlic, tomato, basil, salt, sugar", instructions: "Bring a large pot of water to a boil. Add kosher salt to the boiling water, then add the pasta. Cook according to the package instructions, about 9 minutes.\r\nIn a large skillet over medium-high heat, add the olive oil and heat until the oil starts to shimmer. Add the garlic and cook, stirring, until fragrant, 1 to 2 minutes. Add the chopped tomatoes, red chile flakes, Italian seasoning and salt and pepper to taste. Bring to a boil and cook for 5 minutes. Remove from the heat and add the chopped basil.\r\nDrain the pasta and add it to the sauce. Garnish with Parmigiano-Reggiano flakes and more basil and serve warm."),
+            Meal(name: "Pasta Primavera", imageUrl: "spaghetti", ingredients: "olive oil, egg, salt, sugar", instructions: "Bring a large pot of water to a boil. Add kosher salt to the boiling water, then add the pasta. Cook according to the package instructions, about 9 minutes.\r\nIn a large skillet over medium-high heat, add the olive oil and heat until the oil starts to shimmer. Add the garlic and cook, stirring, until fragrant, 1 to 2 minutes. Add the chopped tomatoes, red chile flakes, Italian seasoning and salt and pepper to taste. Bring to a boil and cook for 5 minutes. Remove from the heat and add the chopped basil.\r\nDrain the pasta and add it to the sauce. Garnish with Parmigiano-Reggiano flakes and more basil and serve warm."),
+            Meal(name: "Chicken Fajitas", imageUrl: "corndog", ingredients: "olive oil, egg, garlic, tomato", instructions: "Bring a large pot of water to a boil. Add kosher salt to the boiling water, then add the pasta. Cook according to the package instructions, about 9 minutes.\r\nIn a large skillet over medium-high heat, add the olive oil and heat until the oil starts to shimmer. Add the garlic and cook, stirring, until fragrant, 1 to 2 minutes. Add the chopped tomatoes, red chile flakes, Italian seasoning and salt and pepper to taste. Bring to a boil and cook for 5 minutes. Remove from the heat and add the chopped basil.\r\nDrain the pasta and add it to the sauce. Garnish with Parmigiano-Reggiano flakes and more basil and serve warm."),
+            Meal(name: "Vegetarian Chili", imageUrl: "pie", ingredients: "olive oil, egg, garlic, tomato, basil, salt, sugar", instructions: "Bring a large pot of water to a boil. Add kosher salt to the boiling water, then add the pasta. Cook according to the package instructions, about 9 minutes.\r\nIn a large skillet over medium-high heat, add the olive oil and heat until the oil starts to shimmer. Add the garlic and cook, stirring, until fragrant, 1 to 2 minutes. Add the chopped tomatoes, red chile flakes, Italian seasoning and salt and pepper to taste. Bring to a boil and cook for 5 minutes. Remove from the heat and add the chopped basil.\r\nDrain the pasta and add it to the sauce. Garnish with Parmigiano-Reggiano flakes and more basil and serve warm."),
+            Meal(name: "Pasta Primavera", imageUrl: "spaghetti", ingredients: "olive oil, egg, garlic, tomato, basil, salt, sugar", instructions: "Bring a large pot of water to a boil. Add kosher salt to the boiling water, then add the pasta. Cook according to the package instructions, about 9 minutes.\r\nIn a large skillet over medium-high heat, add the olive oil and heat until the oil starts to shimmer. Add the garlic and cook, stirring, until fragrant, 1 to 2 minutes. Add the chopped tomatoes, red chile flakes, Italian seasoning and salt and pepper to taste. Bring to a boil and cook for 5 minutes. Remove from the heat and add the chopped basil.\r\nDrain the pasta and add it to the sauce. Garnish with Parmigiano-Reggiano flakes and more basil and serve warm."),
+            Meal(name: "Chicken Fajitas", imageUrl: "corndog", ingredients: "olive oil, egg, garlic, tomato, basil, salt, sugar", instructions: "Bring a large pot of water to a boil. Add kosher salt to the boiling water, then add the pasta. Cook according to the package instructions, about 9 minutes.\r\nIn a large skillet over medium-high heat, add the olive oil and heat until the oil starts to shimmer. Add the garlic and cook, stirring, until fragrant, 1 to 2 minutes. Add the chopped tomatoes, red chile flakes, Italian seasoning and salt and pepper to taste. Bring to a boil and cook for 5 minutes. Remove from the heat and add the chopped basil.\r\nDrain the pasta and add it to the sauce. Garnish with Parmigiano-Reggiano flakes and more basil and serve warm."),
+            Meal(name: "Vegetarian Chili", imageUrl: "pie", ingredients: "olive oil, egg, garlic, tomato, basil, salt, sugar", instructions: "Bring a large pot of water to a boil. Add kosher salt to the boiling water, then add the pasta. Cook according to the package instructions, about 9 minutes.\r\nIn a large skillet over medium-high heat, add the olive oil and heat until the oil starts to shimmer. Add the garlic and cook, stirring, until fragrant, 1 to 2 minutes. Add the chopped tomatoes, red chile flakes, Italian seasoning and salt and pepper to taste. Bring to a boil and cook for 5 minutes. Remove from the heat and add the chopped basil.\r\nDrain the pasta and add it to the sauce. Garnish with Parmigiano-Reggiano flakes and more basil and serve warm."),
+            // Add more meals here
+        ]
+    }
+    
+    func handleUploadPhoto() {
+        // Implement logic to handle photo upload (set hasIngredients to true after successful upload)
+        hasIngredients = true // Placeholder logic, replace with your actual implementation
+        filterMeals()
+    }
+}
+
