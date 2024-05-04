@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		43A2346B2BDF96390002E3DF /* ImagePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43A2346A2BDF96390002E3DF /* ImagePickerView.swift */; };
+		43B51E1D2BE47FC600934C5F /* IngredientDetector.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 43B51E1C2BE47FC600934C5F /* IngredientDetector.mlmodel */; };
 		43C909EF2BDF2C9E004EC569 /* NC1_TIMCookerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C909EE2BDF2C9E004EC569 /* NC1_TIMCookerApp.swift */; };
 		43C909F12BDF2C9E004EC569 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C909F02BDF2C9E004EC569 /* ContentView.swift */; };
 		43C909F32BDF2C9F004EC569 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 43C909F22BDF2C9F004EC569 /* Assets.xcassets */; };
@@ -19,6 +20,7 @@
 
 /* Begin PBXFileReference section */
 		43A2346A2BDF96390002E3DF /* ImagePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerView.swift; sourceTree = "<group>"; };
+		43B51E1C2BE47FC600934C5F /* IngredientDetector.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = IngredientDetector.mlmodel; sourceTree = "<group>"; };
 		43C909EB2BDF2C9E004EC569 /* NC1_TIMCooker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NC1_TIMCooker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		43C909EE2BDF2C9E004EC569 /* NC1_TIMCookerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NC1_TIMCookerApp.swift; sourceTree = "<group>"; };
 		43C909F02BDF2C9E004EC569 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -66,6 +68,7 @@
 				43C909F02BDF2C9E004EC569 /* ContentView.swift */,
 				43D5AC5E2BE277ED0024B70C /* DetailView.swift */,
 				43A2346A2BDF96390002E3DF /* ImagePickerView.swift */,
+				43B51E1C2BE47FC600934C5F /* IngredientDetector.mlmodel */,
 				43C909F22BDF2C9F004EC569 /* Assets.xcassets */,
 				43C909F42BDF2C9F004EC569 /* Preview Content */,
 			);
@@ -178,6 +181,7 @@
 				43C909F12BDF2C9E004EC569 /* ContentView.swift in Sources */,
 				43CE74F22BE24AAA00CBE0C0 /* MealListViewModel.swift in Sources */,
 				43A2346B2BDF96390002E3DF /* ImagePickerView.swift in Sources */,
+				43B51E1D2BE47FC600934C5F /* IngredientDetector.mlmodel in Sources */,
 				43C909EF2BDF2C9E004EC569 /* NC1_TIMCookerApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -11,7 +11,7 @@ import SwiftUI
 struct NC1_TIMCookerApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(model: nil)
         }
     }
 }
