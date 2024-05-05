@@ -15,6 +15,8 @@ struct ContentView: View {
     @State private var showCamera = false
     @State private var capturedImage: UIImage?
     @State private var detectedIngredients = ""
+    @State private var selectedIngredients: Set<String> = []
+    @State private(set) var meals: [Meal] = []
     
     let model: IngredientDetector?
     
@@ -62,14 +64,24 @@ struct ContentView: View {
                         @unknown default:
                             print("Unknown authorization status.")
                         }
-                        viewModel.handleUploadPhoto()
+                        //                        viewModel.handleUploadPhoto()
                         hasIngredients = true
                         getIngredients()
+                        print(selectedIngredients)
+                        viewModel.filterMeals(by: selectedIngredients)
+                        print(viewModel.meals)
                     })
+                    //                    Button("Add Ingredients") { // Button to navigate to ingredient selection form
+                    NavigationLink("Add Ingredients") {
+                        IngredientSelectionForm(selectedIngredients: $selectedIngredients, meals: $meals, hasIngredients: $hasIngredients) // Pass selectedIngredients for binding
+                        //                        } label: {
+                        //                            Text("Add Ingredients")
+                        //                        }
+                    }
                 } else {
                     ScrollView{
                         LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())]) {
-                            ForEach(viewModel.meals) { meal in
+                            ForEach(meals) { meal in
                                 NavigationLink {
                                     DetailView(meal: meal)
                                 } label: {
@@ -89,7 +101,15 @@ struct ContentView: View {
                     Spacer()
                     UploadButton(action: {
                         viewModel.handleUploadPhoto()
-                        hasIngredients = false                    })
+                        hasIngredients = true
+                        print(viewModel.meals)
+                    })
+                    NavigationLink("Add Ingredients") {
+                        IngredientSelectionForm(selectedIngredients: $selectedIngredients, meals: $meals, hasIngredients: $hasIngredients) // Pass selectedIngredients for binding
+                        //                        } label: {
+                        //                            Text("Add Ingredients")
+                        //                        }
+                    }
                 }
             }
             .padding()
@@ -119,25 +139,35 @@ struct ContentView: View {
             let image = pixelBufferFromImage(image: resizedCapturedImage)
             let prediction = try model.prediction(imagePath: image, iouThreshold: 0.45, confidenceThreshold: 0.25)
             
-//            for prediction in prediction {
-//                //                    print("  Ingredient:", classification.label)
-//                //                    print("    Confidence:", classification.confidence)
-//                //                }
-//            }
-//            print(image)
+            //            for prediction in prediction {
+            //                //                    print("  Ingredient:", classification.label)
+            //                //                    print("    Confidence:", classification.confidence)
+            //                //                }
+            //            }
+            //            print(image)
             print("The prediction is:",prediction.coordinates)
-//            print(prediction.featureNames)
-//            print(prediction.coordinates)
+            //            print(prediction.featureNames)
+            //            print(prediction.coordinates)
             // more code here
             
-//            if let classifications = prediction.classifications {
-//                for classification in classifications {
-//                    print("  Ingredient:", classification.label)
-//                    print("    Confidence:", classification.confidence)
-//                }
-//            } else {
-//                print("  No ingredients detected.")
-//            }
+            //            if let classifications = prediction.classifications {
+            //                for classification in classifications {
+            //                    print("  Ingredient:", classification.label)
+            //                    print("    Confidence:", classification.confidence)
+            //                }
+            //            } else {
+            //                print("  No ingredients detected.")
+            //            }
+            //            if let boundingBoxes = prediction.boundingBoxes {
+            //                  for box in boundingBoxes {
+            //                    print("  Bounding Box:", box.rect)
+            //                    print("    Confidence:", box.confidence)
+            //                    // You can potentially use the bounding box coordinates to extract the ingredient region from the original image for further processing (e.g., OCR)
+            //                  }
+            //                } else {
+            //                  print("  No objects detected.")
+            //                }
+            
         } catch {
             // something went wrong!
         }
@@ -222,6 +252,103 @@ struct ContentView: View {
     
 }
 
+struct IngredientSelectionForm: View {
+    @Binding var selectedIngredients: Set<String> // Bind to selected ingredients in ContentView
+    @Binding var meals: [Meal] // Bind to selected ingredients in ContentView
+    @Binding var hasIngredients: Bool
+    @State private var searchText = "" // State variable for ingredient search
+    @StateObject private var viewModel = MealListViewModel()
+    
+    @Environment(\.presentationMode) var presentationMode
+    
+    let ingredients: [String] = ["egg", "bell pepper", "milk", "butter", "cheese", "salmon", "pasta", "garlic",
+                                 "lemon", "parsley", "salt", "pepper", "parmesan cheese", "toast bread", "almond butter",
+                                 "blueberry", "beef", "chili", "onion", "tomato", "kidney beans", "potato", "mussel",
+                                 "olive oil", "shrimp", "apple", "carrot", "cucumber", "corn", "flour", "avocado",
+                                 "mozzarella cheese", "basil", "yogurt", "strawberry", "granola", "honey", "broccoli",
+                                 "sugar", "eggplant", "sesame oil", "pork rib", "scallop"] // Sample ingredient list
+    
+    var body: some View {
+        NavigationView {
+            VStack {
+                SearchBar(text: $searchText).padding(15) // Search bar for filtering ingredients
+                
+                List {
+                    if searchText.isEmpty{
+                        ForEach(ingredients, id: \.self) { ingredient in // Filter ingredients based on search text
+                            MultipleSelectionRow(title: Text(ingredient), isSelected: selectedIngredients.contains(ingredient)) { // Add/remove ingredient from selection
+                                if selectedIngredients.contains(ingredient) {
+                                    selectedIngredients.remove(ingredient)
+                                } else {
+                                    selectedIngredients.insert(ingredient)
+                                }
+                            }
+                        }
+                    }
+                    else{
+                        ForEach(ingredients.filter { $0.lowercased().contains(searchText.lowercased()) }, id: \.self) { ingredient in // Filter ingredients based on search text
+                            MultipleSelectionRow(title: Text(ingredient), isSelected: selectedIngredients.contains(ingredient)) { // Add/remove ingredient from selection
+                                if selectedIngredients.contains(ingredient) {
+                                    selectedIngredients.remove(ingredient)
+                                } else {
+                                    selectedIngredients.insert(ingredient)
+                                }
+                            }
+                        }
+                    }
+                }
+                
+                Button("Show Results") { // Button to filter meals based on selected ingredients
+                    //                    print(selectedIngredients)
+                    viewModel.filterMeals(by: selectedIngredients) // Pass selected ingredients to filter meals (replace with actual filtering logic in viewModel)
+                    presentationMode.wrappedValue.dismiss()
+                    print(viewModel.meals)
+                    meals = viewModel.meals
+                    hasIngredients = true
+                }
+            }
+            .navigationTitle("Add Ingredients")
+        }
+        .onAppear { // Call loadMeals on view appearance
+            viewModel.loadMeals()
+        }
+    }
+}
+
+struct SearchBar: View {
+    @Binding var text: String
+    
+    var body: some View {
+        TextField("Search Ingredients", text: $text)
+            .padding()
+            .background(Color(.gray).opacity(0.2))
+            .cornerRadius(8.0)
+    }
+}
+
+struct MultipleSelectionRow: View {
+    let title: Text
+    let isSelected: Bool
+    let action: () -> Void
+    
+    var body: some View {
+        HStack {
+            title
+            Spacer()
+            if isSelected {
+                Image(systemName: "checkmark.circle.fill")
+                    .foregroundColor(.green)
+            } else {
+                Image(systemName: "circle")
+            }
+        }
+        .contentShape(Rectangle())
+        .onTapGesture {
+            action()
+        }
+    }
+}
+
 struct MealRow: View {
     let meal: Meal
     
@@ -229,23 +356,28 @@ struct MealRow: View {
         ZStack {
             Rectangle()
                 .foregroundColor(.clear)
-                .frame(width: 150, height: 130)
+                .frame(width: 150, height: 160)
                 .background(.white)
                 .cornerRadius(15)
                 .shadow(
                     color: Color(red: 0, green: 0, blue: 0, opacity: 0.25), radius: 4, y: 0.50
                 )
             Image(meal.imageUrl)
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+            //                .scaledToFit()
                 .foregroundColor(.clear)
                 .frame(width: 140, height: 105)
                 .background(
                     LinearGradient(gradient: Gradient(colors: [Color(red: 0, green: 0, blue: 0).opacity(0), .black]), startPoint: .top, endPoint: .bottom)
                 )
                 .cornerRadius(15)
-                .offset(x: 0, y: -10)
+                .offset(x: 0, y: -20)
             Text(meal.name)
                 .font(Font.custom("SF Pro Text", size: 13))
                 .foregroundColor(.black)
+                .frame(maxWidth: 120) // Set maximum width for the text
+                .fixedSize(horizontal: false, vertical: true) // Allow vertical expansion
                 .offset(x: -0.50, y: 55)
         }
         .frame(width: 177, height: 155)
